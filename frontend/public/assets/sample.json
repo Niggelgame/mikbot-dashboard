@@ -1,0 +1,144 @@
+{
+    "modules": [
+        {
+            "name": "module1",
+            "pages": [
+                {
+                    "name": "page1",
+                    "variables": [
+                        {
+                            "id": "title",
+                            "type": "direct",
+                            "value": "Dies ist der Titel"
+                        },
+                        {
+                            "id": "var2",
+                            "type": "request",
+                            "placeholder": "Loading...",
+                            "url": "/api/v1/test"
+                        }
+                    ],
+                    "elements": [
+                        {
+                            "type": "text",
+                            "value": {
+                                "type": "expression",
+                                "value": "title"
+                            },
+                            "options": {
+                                "color": "red"
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "value": {
+                                "type": "direct",
+                                "value": "HALLOOOO"
+                            },
+                            "options": {
+                                "color": "red"
+                            }
+                        },
+                        {
+                            "type": "row",
+                            "main_axis": "start",
+                            "cross_axis": "center",
+                            "elements": [
+                                {
+                                    "type": "textinput",
+                                    "input_identifier": "element2",
+                                    "label": "Element 2",
+                                    "required": true,
+                                    "default": "",
+                                    "placeholder": "",
+                                    "description": "",
+                                    "options": {
+                                        "type": "password"
+                                    },
+                                    "input_validation": [
+                                        {
+                                            "type": "regex",
+                                            "value": "^[a-zA-Z0-9]*$"
+                                        }
+                                    ],
+                                    "conditional": {
+                                        "show": null,
+                                        "when": null,
+                                        "eq": ""
+                                    }
+                                },
+                                {
+                                    "type": "textinput",
+                                    "input_identifier": "element3",
+                                    "label": "Element 3",
+                                    "required": true,
+                                    "default": "",
+                                    "placeholder": "",
+                                    "description": "",
+                                    "options": {
+                                        "type": "password"
+                                    },
+                                    "input_validation": [
+                                        {
+                                            "type": "regex",
+                                            "value": "^[a-zA-Z0-9]*$"
+                                        },
+                                        {
+                                            "type": "eq",
+                                            "value": "element3"
+                                        }
+                                    ],
+                                    "conditional": {
+                                        "show": null,
+                                        "when": null,
+                                        "eq": ""
+                                    }
+                                },
+                                {
+                                    "type": "spacer"
+                                },
+                                {
+                                    "type": "button",
+                                    "label": "Element 4",
+                                    "options": {
+                                        "color": "blue"
+                                    },
+                                    "action": {
+                                        "type": "submit",
+                                        "values": [
+                                            {
+                                                "key": "password_one",
+                                                "identifier": "element2"
+                                            },
+                                            {
+                                                "key": "password_two",
+                                                "identifier": "element2"
+                                            }
+                                        ],
+                                        "endpoint": "/submitpassword00001"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "column",
+                            "main_axis": "start",
+                            "cross_axis": "center",
+                            "elements": [
+                                {
+                                    "type": "image",
+                                    "url": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+                                    "alt": "Google Logo",
+                                    "options": {
+                                        "width": "100px",
+                                        "height": "100px"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
