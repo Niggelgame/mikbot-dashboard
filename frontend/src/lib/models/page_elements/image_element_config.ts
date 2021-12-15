@@ -2,6 +2,7 @@
 
 import type { PageElementConfig } from "../page_element_config";
 
+export let IMAGE_ELEMENT_TYPE = "image";
 
 export interface ImageElementConfig extends PageElementConfig {
     url: string;

@@ -1,19 +1,19 @@
-export type Variable = string | ValueConfigs;
+export type Variable = string | ValueConfig;
 
-export interface ValueConfigs {
+export interface ValueConfig {
     type: string;
 }
 
 export let VALUE_TYPE_VAR = "var";
 
-export interface VarConfigValue extends ValueConfigs {
+export interface VarConfigValue extends ValueConfig {
     value: string;
     placeholder?: string;
     property?: string[];
 }
 
-export let VALUE_TYPE_DIRECT = "var";
+export let VALUE_TYPE_DIRECT = "direct";
 
-export interface DirectConfigValue extends ValueConfigs {
+export interface DirectConfigValue extends ValueConfig {
     value: string;
 }

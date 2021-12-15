@@ -7,8 +7,6 @@
     let close = () => {
         dispatch("closemenu");
     };
-
-    const indize = new Array(20);
 </script>
 
 <div
@@ -20,6 +18,6 @@
         <button class="lg:hidden px-2" on:click={close}>X</button>
     </div>
 
-    <ModuleBrowser />
+    <ModuleBrowser on:close="{close}" />
     <div class="flex-1" />
 </div>

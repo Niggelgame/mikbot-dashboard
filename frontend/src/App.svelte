@@ -4,7 +4,7 @@
   import Sidemenu from "./lib/components/Sidemenu.svelte";
   import Home from "./lib/pages/Home.svelte";
   import { fly } from "svelte/transition";
-import Page from "./lib/pages/Page.svelte";
+  import Page from "./lib/pages/Page.svelte";
 
   let expandedMenu = false;
 

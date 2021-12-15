@@ -15,14 +15,14 @@
                             "id": "var2",
                             "type": "request",
                             "placeholder": "Loading...",
-                            "url": "/api/v1/test"
+                            "url": "/assets/sample.json"
                         }
                     ],
                     "elements": [
                         {
                             "type": "text",
                             "value": {
-                                "type": "expression",
+                                "type": "var",
                                 "value": "title"
                             },
                             "options": {
@@ -41,8 +41,8 @@
                         },
                         {
                             "type": "row",
-                            "main_axis": "start",
-                            "cross_axis": "center",
+                            "main_axis": "around",
+                            "cross_axis": "around",
                             "elements": [
                                 {
                                     "type": "textinput",
@@ -84,7 +84,7 @@
                                             "value": "^[a-zA-Z0-9]*$"
                                         },
                                         {
-                                            "type": "eq",
+                                            "type": "eq_input",
                                             "value": "element3"
                                         }
                                     ],
@@ -101,18 +101,25 @@
                                     "type": "button",
                                     "label": "Element 4",
                                     "options": {
-                                        "color": "blue"
+                                        "color": "yellow"
                                     },
                                     "action": {
                                         "type": "submit",
                                         "values": [
                                             {
                                                 "key": "password_one",
+                                                "type": "binding",
                                                 "identifier": "element2"
                                             },
                                             {
                                                 "key": "password_two",
+                                                "type": "binding",
                                                 "identifier": "element2"
+                                            },
+                                            {
+                                                "key": "test",
+                                                "type": "var",
+                                                "identifier": "var2"
                                             }
                                         ],
                                         "endpoint": "/submitpassword00001"
@@ -137,6 +144,19 @@
                             ]
                         }
                     ]
+                }
+            ]
+        },
+        {
+            "name": "module2",
+            "pages": [
+                {
+                    "name": "page2",
+                    "elements": []
+                },
+                {
+                    "name": "page3",
+                    "elements": []
                 }
             ]
         }

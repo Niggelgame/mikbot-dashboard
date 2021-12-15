@@ -84,7 +84,7 @@
                                             "value": "^[a-zA-Z0-9]*$"
                                         },
                                         {
-                                            "type": "eq",
+                                            "type": "eq_input",
                                             "value": "element3"
                                         }
                                     ],

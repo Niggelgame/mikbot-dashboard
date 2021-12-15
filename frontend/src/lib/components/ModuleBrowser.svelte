@@ -1,12 +1,21 @@
 <script lang="ts">
+    import { createEventDispatcher } from "svelte";
+    import { navigate } from "svelte-routing";
+
     import { PageRepository } from "../runtime/respositories/page_repository";
     import ModuleButton from "./ModuleButton.svelte";
+
+    const dispatch = createEventDispatcher();
 
     let modules = PageRepository.instance.getModules();
 
     let selectPage = (e) => {
         const mod = e.detail.module;
         const page = e.detail.page;
+        navigate(`/${mod}/${page}`);
+        setTimeout(()=> {
+            dispatch("close");
+        }, 100);
     };
 </script>
 
@@ -19,7 +28,7 @@
         {#if mod.pages.length == 1}
             <ModuleButton
                 module={mod.name}
-                page={mod.pages[0].name}
+                page={`${mod.pages[0].name}`}
                 indented={false}
                 on:onclick={selectPage}
             />
