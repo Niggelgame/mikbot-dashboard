@@ -1,9 +1,9 @@
 <script lang="ts">
-import PageComposer from "../components/PageComposer.svelte";
-import type { PageConfig } from "../models/page_config";
+    import PageComposer from "../components/PageComposer.svelte";
+    import type { PageConfig } from "../models/page_config";
 
     import { PageRepository } from "../runtime/respositories/page_repository";
-import { VariableRepository } from "../runtime/respositories/variable_repository";
+    import { VariableRepository } from "../runtime/respositories/variable_repository";
 
     export let modulename: string;
     export let pagename: string;
@@ -13,7 +13,10 @@ import { VariableRepository } from "../runtime/respositories/variable_repository
     $: pageConfig = PageRepository.instance.getPage(modulename, pagename);
     $: (async (pageConfig: Promise<PageConfig>) => {
         console.log("PageConfig loaded");
-        VariableRepository.instance.loadVariablesForPage(await pageConfig, modulename);
+        VariableRepository.instance.loadVariablesForPage(
+            await pageConfig,
+            modulename
+        );
     })(pageConfig);
 </script>
 
@@ -25,7 +28,10 @@ import { VariableRepository } from "../runtime/respositories/variable_repository
     <div>
         <p>{config.name}</p>
     </div>
-    <PageComposer pageElements={config.elements} pageName={`${modulename}/${pagename}`} />
+    <PageComposer
+        pageElements={config.elements}
+        pageName={`${modulename}/${pagename}`}
+    />
 {:catch err}
     <div>
         <p style="color: red">{err.message}</p>

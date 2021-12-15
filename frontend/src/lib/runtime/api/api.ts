@@ -32,6 +32,11 @@ export default class Api {
         return fetch(url, this.getOptions(method, body, headers)).then(res => res.json());
     }
 
+    async runAction(url:string, method: string, body?: any, headers?: { [key: string]: string }) : Promise<Response> {
+        return await fetch(url, this.getOptions(method, body, headers));
+        // return this.executeRequest(url, method, body, headers);
+    }
+
     private getOptions(method: string, body?: any, headers?: { [key: string]: string }) : RequestInit{
         return {
             method: method,

@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { ButtonInputElementConfig } from "src/lib/models/page_elements/button_input_element_config";
+    import { runAction } from "../../runtime/utils/action_executor";
     import { getColor, getDarkerColor } from "../../runtime/utils/colors";
 
     export let config: ButtonInputElementConfig;
@@ -11,6 +12,7 @@
 
     let onClick = (e: MouseEvent) => {
         console.log("Executing onClick");
+        runAction(config.action, page);
     };
 </script>
 
