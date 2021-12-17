@@ -5,6 +5,7 @@ import type { Writable } from "svelte/store";
 import { VARIABLE_TYPE_DIRECT, VARIABLE_TYPE_REQUEST } from "../../models/variable_config";
 import { writable } from "svelte/store";
 import Api from "../api/api";
+import type { TextInputValidation } from "src/lib/models/page_elements/text_input_element_config";
 
 class _Variable {
     private value?: any;
@@ -75,23 +76,28 @@ export class BasicVariableService {
     }
 }
 
+export interface WritableData {
+    value: Writable<string>;
+    validators: TextInputValidation[];
+}
+
 // Returns Bindings for 
 export class BindingVariableService {
-    private variables: { [key: string]: { [key: string]: Writable<string> } } = {};
+    private variables: { [key: string]: { [key: string]: WritableData } } = {};
 
-    public getVariableForPage(page: string, id: string, defaultValue?: string): Writable<string> {
+    public getVariableForPage(page: string, id: string, defaultValue?: string, validators?: TextInputValidation[]): WritableData {
         if (!this.variables[page]) {
             this.variables[page] = {};
         }
         if (!this.variables[page][id]) {
-            this.variables[page][id] = writable(defaultValue);
+            this.variables[page][id] = {value: writable(defaultValue), validators: validators};
         }
         return this.variables[page][id];
     }
 
     public clearVariableForPage(page: string, id: string) {
         if (this.variables[page]) {
-            this.variables[page][id].set(undefined);
+            this.variables[page][id].value.set(undefined);
         }
     }
 }

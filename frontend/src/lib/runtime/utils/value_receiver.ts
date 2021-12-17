@@ -16,7 +16,7 @@ export let getValue = (variable: Variable, page: string) => {
             const varConfig = config as VarConfigValue;
             set(varConfig.placeholder);
             const result = VariableRepository.instance.getBasicVariable(page, varConfig.value);
-            console.log("result", result);
+            // console.log("result", result);
             if (result) {
                 if(typeof result === "string") {
                     set(result);

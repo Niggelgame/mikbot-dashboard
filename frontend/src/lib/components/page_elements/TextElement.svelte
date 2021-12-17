@@ -10,6 +10,6 @@
 
 <div>
     {#if typeof $value !== "undefined" && $value !== null}
-        <p style="font-size: {config.options?.font_size ?? 'large'};">{($value).toString()}</p>
+        <p style="font-size: {config.options?.font_size ?? 'large'}; ">{($value).toString()}</p>
     {/if}
 </div>

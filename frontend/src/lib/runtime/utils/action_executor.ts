@@ -1,14 +1,11 @@
+import type { Writable } from "svelte/store";
 import type { BindingButtonSubmitActionValue, ButtonAction, ButtonSubmitAction, VariableButtonSubmitActionValue } from "../../models/page_elements/button_input_element_config";
 import {BUTTON_ACTION_TYPE_SUBMIT, BUTTON_ACTION_VALUE_BINDING, BUTTON_ACTION_VALUE_VARIABLE} from "../../models/page_elements/button_input_element_config";
 import Api from "../api/api";
 import { VariableRepository } from "../respositories/variable_repository";
 
 export let runAction = async (action: ButtonAction, page: string) : Promise<void> => {
-    function get__store(store) {
-        let $val
-        store.subscribe($ => $val = $)()
-        return $val
-      }
+
 
     if(action.type === BUTTON_ACTION_TYPE_SUBMIT) {
         let submitAction = action as ButtonSubmitAction;
@@ -22,8 +19,8 @@ export let runAction = async (action: ButtonAction, page: string) : Promise<void
                 data[value.key] = variable;
             } else if(value.type === BUTTON_ACTION_VALUE_BINDING) {
                 let bindingValue = value as BindingButtonSubmitActionValue;
-                let binding = await VariableRepository.instance.getVariableBinding(page, bindingValue.identifier);
-                data[value.key] = get__store(binding);
+                let binding = await VariableRepository.instance.getVariableBindingValueValidated(page, bindingValue.identifier);
+                data[value.key] = binding;
             }
         }
 

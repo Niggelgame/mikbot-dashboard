@@ -7,7 +7,7 @@ import PageComposer from "../PageComposer.svelte";
 </script>
 
 <div
-    class="flex {!config.cross_axis
+    class="flex flex-col md:flex-row {!config.cross_axis
         ? 'items-start'
         : `items-${config.cross_axis}`} {!config.main_axis
         ? 'justify-start'
