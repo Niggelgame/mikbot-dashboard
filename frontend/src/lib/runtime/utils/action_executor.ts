@@ -15,7 +15,7 @@ export let runAction = async (action: ButtonAction, page: string) : Promise<void
         for(let value of submitAction.values ?? []) {
             if(value.type === BUTTON_ACTION_VALUE_VARIABLE) {
                 let variableValue = value as VariableButtonSubmitActionValue;
-                let variable = await VariableRepository.instance.getBasicVariable(page, variableValue.var);
+                let variable = await VariableRepository.instance.getBasicVariable(page, variableValue.variable);
                 data[value.key] = variable;
             } else if(value.type === BUTTON_ACTION_VALUE_BINDING) {
                 let bindingValue = value as BindingButtonSubmitActionValue;

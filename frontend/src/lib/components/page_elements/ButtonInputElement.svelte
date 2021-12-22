@@ -10,13 +10,18 @@
     $: hoverColor = getDarkerColor(config.options?.color ?? "blue");
     $: activeColor = getDarkerColor(config.options?.color ?? "blue", 2);
 
-    let enabled = false;
+    let enabled = true;
 
     let onClick = async (e: MouseEvent) => {
         if (enabled) {
             enabled = false;
-            await runAction(config.action, page);
-            enabled = true;
+            try {
+                await runAction(config.action, page);
+            } catch (e) {
+                console.error(e);
+            } finally {
+                enabled = true;
+            }
         }
     };
 </script>

@@ -1,6 +1,8 @@
 plugins {
     id("com.google.devtools.ksp") version "1.6.0-1.0.1" // used for plugin-processor
     kotlin("jvm") version "1.6.0"
+    // used for json-serialization and deserialization
+    kotlin("plugin.serialization") version "1.5.31"
     id("dev.schlaubi.mikbot.gradle-plugin") version "1.0.3"
 }
 
@@ -17,8 +19,11 @@ dependencies {
     // this one is included in the bot itself, therefore we make it compileOnly
     compileOnly(kotlin("stdlib-jdk8"))
     compileOnly("dev.schlaubi", "mikbot-api", "2.0.1")
+
     plugin("dev.schlaubi", "mikbot-ktor", "1.0.1")
     ksp("dev.schlaubi", "mikbot-plugin-processor", "1.0.0")
+
+    implementation("io.ktor", "ktor-serialization", "1.6.2")
 }
 
 mikbotPlugin {

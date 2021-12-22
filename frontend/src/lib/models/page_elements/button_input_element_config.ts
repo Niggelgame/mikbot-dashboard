@@ -34,7 +34,7 @@ export interface ButtonSubmitActionValue {
 export let BUTTON_ACTION_VALUE_VARIABLE = "var";
 
 export interface VariableButtonSubmitActionValue extends ButtonSubmitActionValue {
-    var: string;
+    variable: string;
 }
 
 export let BUTTON_ACTION_VALUE_BINDING = "binding";

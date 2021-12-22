@@ -14,7 +14,7 @@ export interface TextInputElementConfig  extends PageElementConfig {
 }
 
 export interface TextInputOptions {
-    type: string;
+    type?: string;
 }
 
 export let TEXT_INPUT_VALIDATION_TYPE_REGEX = "regex";
