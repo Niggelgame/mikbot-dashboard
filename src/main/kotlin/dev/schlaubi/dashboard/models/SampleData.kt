@@ -77,15 +77,15 @@ val sampleData = BaseConfig(
                                     ),
                                     action = ButtonSubmitAction(
                                         values = listOf(
-                                            ButtonSubmitActionValueBinding(
+                                            ActionValueBinding(
                                                 key = "password_one",
                                                 identifier = "element2"
                                             ),
-                                            ButtonSubmitActionValueBinding(
+                                            ActionValueBinding(
                                                 key = "password_two",
                                                 identifier = "element3"
                                             ),
-                                            ButtonSubmitActionValueVariable(
+                                            ActionValueVariable(
                                                 key = "password_three",
                                                 variable = "element4"
                                             )

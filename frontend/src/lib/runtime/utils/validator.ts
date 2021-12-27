@@ -15,6 +15,9 @@ export function validateValue(value: string, page: string, validators?: TextInpu
                     return `Value must be at least ${validator.value} characters long`;
                 }
             } else if (validator.type === TEXT_INPUT_VALIDATION_TYPE_REGEX) {
+                if(value === null) {
+                    return `Value must match ${validator.value}`;
+                }
                 if (!value.match(validator.value)) {
                     return `Value must match ${validator.value}`;
                 }

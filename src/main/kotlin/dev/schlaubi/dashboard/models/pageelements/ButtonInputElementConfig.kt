@@ -1,5 +1,6 @@
 package dev.schlaubi.dashboard.models.pageelements
 
+import dev.schlaubi.dashboard.models.ActionValue
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -23,24 +24,7 @@ sealed class ButtonAction
 @Serializable
 @SerialName("submit")
 data class ButtonSubmitAction(
-    val endpoint: String, val method: String? = null, val values: List<ButtonSubmitActionValue>? = null
+    val endpoint: String, val method: String? = null, val values: List<ActionValue>? = null
 ) : ButtonAction()
 
 
-@Serializable
-sealed class ButtonSubmitActionValue {
-    // Key used in request body
-    abstract val key: String
-}
-
-@Serializable
-@SerialName("var")
-data class ButtonSubmitActionValueVariable(
-    override val key: String, val variable: String
-) : ButtonSubmitActionValue()
-
-@Serializable
-@SerialName("binding")
-data class ButtonSubmitActionValueBinding(
-    override val key: String, val identifier: String
-) : ButtonSubmitActionValue()

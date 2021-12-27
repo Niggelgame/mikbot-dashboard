@@ -21,7 +21,7 @@ export default class Api {
     }
 
     getConfig() : Promise<BaseConfig> {
-        return fetch("/assets/sample.json").then(res => res.json());
+        return fetch("http://localhost:8080/").then(res => res.json());
     }
 
     variableFromRequestVariableConfig(variableConfig: RequestVariableConfig) : Promise<any> {
@@ -40,7 +40,6 @@ export default class Api {
     private getOptions(method: string, body?: any, headers?: { [key: string]: string }) : RequestInit{
         return {
             method: method,
-            mode: 'no-cors',
             cache: 'no-cache',
             credentials: 'same-origin',
             headers: {
