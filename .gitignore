@@ -137,3 +137,5 @@ gradle-app.setting
 .classpath
 
 plugins/
+
+.test-env
