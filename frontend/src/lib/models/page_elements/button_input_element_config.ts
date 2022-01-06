@@ -37,8 +37,8 @@ export interface VariableButtonSubmitActionValue extends ButtonSubmitActionValue
     variable: string;
 }
 
-export let BUTTON_ACTION_VALUE_BINDING = "binding";
+export let BUTTON_ACTION_VALUE_CONTROLLER = "controller";
 
-export interface BindingButtonSubmitActionValue extends ButtonSubmitActionValue {
-    identifier: string;
+export interface ControllerButtonSubmitActionValue extends ButtonSubmitActionValue {
+    variable: string;
 }

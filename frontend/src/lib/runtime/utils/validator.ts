@@ -2,11 +2,16 @@ import { TEXT_INPUT_VALIDATION_TYPE_EQUAL_TO_INPUT, TEXT_INPUT_VALIDATION_TYPE_M
 import type { TextInputValidation } from "src/lib/models/page_elements/text_input_element_config";
 import { VariableRepository } from "../respositories/variable_repository";
 
-export function validateValue(value: string, page: string, validators?: TextInputValidation[]): string | void {
+export async function validateValue(value: string, page: string, validators?: TextInputValidation[], required?: boolean): Promise<string | null> {
+    if(required) {
+        if(!value) {
+            return "This field is required";
+        }
+    }
     if (validators?.length > 0) {
         for (let validator of validators) {
             if (validator.type === TEXT_INPUT_VALIDATION_TYPE_EQUAL_TO_INPUT) {
-                let otherValue = VariableRepository.instance.getVariableBindingValueRaw(page, validator.value);
+                let otherValue = await VariableRepository.instance.getVariableBindingValueRaw(page, validator.value);
                 if (value !== otherValue) {
                     return `Value must equal ${validator.value}`;
                 }
@@ -24,6 +29,6 @@ export function validateValue(value: string, page: string, validators?: TextInpu
             }
         }
     } else {
-        return void 0;
+        return null;
     }
 }

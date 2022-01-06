@@ -6,18 +6,20 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: bot
       MONGO_INITDB_ROOT_PASSWORD: bot
+    ports:
+      - "27017:27017"
     volumes:
       - mongo-data:/data/db
-  bot:
-    image: ghcr.io/drschlaubi/mikmusic/bot:latest
-    env_file:
-      - .env
-    depends_on:
-      - mongo
-    volumes:
+  # bot:
+  #  image: ghcr.io/drschlaubi/mikmusic/bot:latest
+  #  env_file:
+  #    - .env
+  #  depends_on:
+  #    - mongo
+  #  volumes:
       - ./plugins:/usr/app/plugins
-    ports:
+    # ports:
       # only needed for verification_mode
-      - "8080:8080"
+      # - "8080:8080"
 volumes:
   mongo-data: { }

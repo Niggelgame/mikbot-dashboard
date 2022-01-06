@@ -4,13 +4,17 @@ import type { Variable } from "../value_configs";
 export let TEXT_INPUT_ELEMENT_TYPE = "textinput";
 
 export interface TextInputElementConfig  extends PageElementConfig {
-    input_identifier: string;
+    controller: TextInputController;
     label?: string;
-    default?: Variable;
     placeholder?: Variable;
-    required?: boolean;
     options?: TextInputOptions;
+}
+
+export interface TextInputController {
+    input_identifier: string;
+    binding_variable: Variable;
     input_validation?: TextInputValidation[];
+    required?: boolean;
 }
 
 export interface TextInputOptions {

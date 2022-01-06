@@ -16,8 +16,7 @@ data class ActionValueVariable(
 ) : ActionValue()
 
 @Serializable
-@SerialName("binding")
-data class ActionValueBinding(
-    override val key: String, val identifier: String
+@SerialName("controller")
+data class ActionValueController(
+    override val key: String, val variable: String
 ) : ActionValue()
-

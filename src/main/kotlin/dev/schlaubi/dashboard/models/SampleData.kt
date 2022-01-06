@@ -1,5 +1,6 @@
-package dev.schlaubi.dashboard.models
 
+package dev.schlaubi.dashboard.models
+/*
 import dev.schlaubi.dashboard.models.pageelements.*
 
 val sampleData = BaseConfig(
@@ -77,14 +78,6 @@ val sampleData = BaseConfig(
                                     ),
                                     action = ButtonSubmitAction(
                                         values = listOf(
-                                            ActionValueBinding(
-                                                key = "password_one",
-                                                identifier = "element2"
-                                            ),
-                                            ActionValueBinding(
-                                                key = "password_two",
-                                                identifier = "element3"
-                                            ),
                                             ActionValueVariable(
                                                 key = "password_three",
                                                 variable = "element4"
@@ -114,4 +107,4 @@ val sampleData = BaseConfig(
             )
         )
     )
-)
+)*/

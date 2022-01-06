@@ -2,11 +2,11 @@ import org.gradle.jvm.toolchain.internal.DefaultToolchainSpec
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.google.devtools.ksp") version "1.6.0-1.0.1" // used for plugin-processor
+    id("com.google.devtools.ksp") version "1.6.0-1.0.2" // used for plugin-processor
     kotlin("jvm") version "1.6.0"
     // used for json-serialization and deserialization
     kotlin("plugin.serialization") version "1.5.31"
-    id("dev.schlaubi.mikbot.gradle-plugin") version "1.0.3"
+    id("dev.schlaubi.mikbot.gradle-plugin") version "1.3.0"
 }
 
 val experimentalAnnotations =
@@ -34,6 +34,8 @@ dependencies {
 
 mikbotPlugin {
     description.set("This is a cool plugin!")
+    provider.set("niggelgame")
+    license.set("AGPL-3.0")
 }
 
 tasks {
@@ -46,14 +48,18 @@ tasks {
 
     withType<KotlinCompile> {
         kotlinOptions {
-            jvmTarget = "16"
+            jvmTarget = "17"
             freeCompilerArgs = freeCompilerArgs + experimentalAnnotations.map { "-Xopt-in=$it" }
         }
+    }
+
+    installBot {
+        botVersion.set("2.0.1-SNAPSHOT")
     }
 }
 
 kotlin {
     jvmToolchain {
-        (this as DefaultToolchainSpec).languageVersion.set(JavaLanguageVersion.of(16))
+        (this as DefaultToolchainSpec).languageVersion.set(JavaLanguageVersion.of(17))
     }
 }

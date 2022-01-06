@@ -3,32 +3,22 @@
         TextInputElementConfig,
         TextInputValidation,
     } from "src/lib/models/page_elements/text_input_element_config";
+import { getValue } from "../../runtime/utils/value_receiver";
+import { onMount } from "svelte";
     import { VariableRepository } from "../../runtime/respositories/variable_repository";
+
+    
 
     export let config: TextInputElementConfig;
     export let page: string;
 
-    let requiredValidator: TextInputValidation[];
+    onMount(() =>  {
+        VariableRepository.instance.registerController(page, config.controller);
+    });
 
-    $: {
-        if (config.required) {
-            requiredValidator = [{ type: "regex", value: "^(?!s*$).+" }];
-        } else {
-            requiredValidator = [];
-        }
-    }
-    $: inputvalue = VariableRepository.instance.getVariableBinding(
-        page,
-        config.input_identifier,
-        null,
-        [...config.input_validation, ...requiredValidator]
-    );
-
-    $: inputbinding = inputvalue.value;
-
-
+    $: binding = getValue(config.controller.binding_variable, page);
 </script>
 
 <div>
-    <input type=text bind:value={$inputbinding}>
+    <input type=text bind:value={$binding}>
 </div>
