@@ -25,7 +25,7 @@ class TestModule : DashboardExtensionPoint {
 
             val varValue = var3.getProperty(Test::b).getProperty(Test2::f).getProperty(Test3::g)
 
-            val inputController1 = newTextInputController(newVariable(""))
+            val inputController1 = newTextInputController(varValue)
 
             println("varValue: ${varValue.path.joinToString(".")}")
 
@@ -33,6 +33,8 @@ class TestModule : DashboardExtensionPoint {
                 action {
                     useVariable(variable)
                     useVariable(var2)
+                    useVariable(var3)
+                    useVariable(varValue)
 
                     useTextInputController(inputController1)
 
@@ -40,9 +42,11 @@ class TestModule : DashboardExtensionPoint {
                         val value = fromVariable(variable)
                         val value2 = fromVariable(var2)
                         val value3 = fromTextInputController(inputController1)
+                        val test = fromVariable(var3)
+                        val superTest = fromVariable(varValue)
 
                         updateVariable(var2, "neuer wert")
-                        println("Value: $value, $value2, $value3")
+                        println("Value: $value, $value2, $value3, $test, $superTest")
                     }
                 }
             }
@@ -53,15 +57,32 @@ class TestModule : DashboardExtensionPoint {
 
             text(var3.getProperty(Test::a))
 
-
-
-            textInput(inputController1)
-
             val inputController2 = newTextInputController(newVariable(""), listOf(MinimalLengthTextInputValidator(3)))
 
             textInput(inputController2) {
                 label = "Test2"
             }
+
+            button("Test2") {
+                action {
+                    useTextInputController(inputController2)
+
+                    run {
+                        val value = fromTextInputController(inputController2)
+                        println("Value: $value")
+                    }
+                }
+            }
+
+            val goodVar = newVariable("Hiii")
+
+            text("Binding Tests")
+            text("Sub Variables")
+            textInput(inputController1)
+            text(varValue)
+            text("Base Variables")
+            textInput(newTextInputController(goodVar))
+            text(goodVar)
         }
     }
 }

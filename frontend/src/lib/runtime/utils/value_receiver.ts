@@ -33,7 +33,7 @@ export class PropertyWritable<T, R> implements ExtendedWritable<T> {
         this._baseWritable.setIfNull(this.setProperty(this._value, value));
     }
     set(value: T): void {
-        this._baseWritable.setIfNull(this.setProperty(this._value, value));
+        this._baseWritable.set(this.setProperty(this._value, value));
     }
     update(updater: Updater<T>): void {
         this._baseWritable.update((v) => {

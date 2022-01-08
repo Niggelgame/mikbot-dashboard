@@ -49,25 +49,28 @@ class ActionContext : ModuleContext<List<ActionValue>>() {
             }
         }
 
-        fun <T: Any, R> fromVariable(variable: VariableDataChild<T, R>) : R {
+        fun <T : Any, R> fromVariable(variable: VariableDataChild<T, R>): R {
             val value = fromVariable(variable.parentVariable)
             return variable.getValue(value)
         }
 
         // Returns value if validation completes successfully
-        fun <T: Any> fromTextInputController(controllerContext: TextInputControllerContext<T>, validated: Boolean = true) : String? {
+        fun <T : Any> fromTextInputController(
+            controllerContext: TextInputControllerContext<T>,
+            validated: Boolean = true
+        ): String? {
             val baseValue = fromVariable(controllerContext.parentVariable.getBaseVariable())
             val text = controllerContext.parentVariable.getValue(baseValue)
-            if(validated) {
+            if (validated) {
                 val validationSuccess = controllerContext.validators.all {
                     it.validate(text) { provider -> fromStringVariableProvider(provider) }
                 }
-                if(!validationSuccess) return null
+                if (!validationSuccess) return null
             }
             return text
         }
 
-        private fun <R : Any> fromStringVariableProvider(provider: ValueProvider<R, String>) : String {
+        private fun <R : Any> fromStringVariableProvider(provider: ValueProvider<R, String>): String {
             val validator = fromVariable(provider.getBaseVariable())
             return provider.getValue(validator)
         }
@@ -82,12 +85,17 @@ class ActionContext : ModuleContext<List<ActionValue>>() {
         }
     }
 
+    data class ActionControllerData<T : Any>(
+        val actionData: ActionData<T>,
+        val controllerId: String,
+    )
+
     data class ActionData<T : Any>(
         val id: String, val decode: Decoder<T>
     )
 
     val variableActions = mutableListOf<ActionData<*>>()
-    val inputActions = mutableListOf<ActionData<*>>()
+    val inputActions = mutableListOf<ActionControllerData<*>>()
     private val runners = mutableListOf<suspend RunContext.() -> Unit>()
 
     inline fun <reified T : Any> decode(json: JsonElement): T {
@@ -106,9 +114,14 @@ class ActionContext : ModuleContext<List<ActionValue>>() {
         )
     }
 
-    inline fun <reified T: Any> useTextInputController(controllerContext: TextInputControllerContext<T>) {
-        variableActions.add(
-            ActionData<T>(controllerContext.parentVariable.getBaseVariable().id, decode = { decode(it) })
+    inline fun <reified T : Any> useTextInputController(controllerContext: TextInputControllerContext<T>) {
+        inputActions.add(
+            ActionControllerData(
+                controllerId = controllerContext.id,
+                actionData = ActionData<T>(
+                    controllerContext.parentVariable.getBaseVariable().id,
+                    decode = { decode(it) })
+            )
         )
     }
 
@@ -117,7 +130,8 @@ class ActionContext : ModuleContext<List<ActionValue>>() {
     }
 
     private suspend fun runWithData(data: JsonElement): Map<String, VariableUpdate> {
-        val runContext = RunContext((variableActions + inputActions).associateBy { it.id }, data
+        val runContext = RunContext(
+            (variableActions + inputActions.map { it.actionData }).associateBy { it.id }, data
         )
         for (runner in runners) {
             runner(runContext)
@@ -131,7 +145,8 @@ class ActionContext : ModuleContext<List<ActionValue>>() {
             ActionValueVariable(it.id, it.id)
         }
         val controllers = inputActions.map {
-            ActionValueController(it.id, it.id)
+            // Use controller variable as key and controller id as value
+            ActionValueController(it.actionData.id, it.controllerId)
         }
         return PageModuleConfig(
             routes = listOf(ActionRoute(

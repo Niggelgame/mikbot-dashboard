@@ -156,6 +156,8 @@ export class BasicVariableService {
                 }
             }
         }
+
+        console.info("Finished loading variables for " + pagename);
     }
 
     // With page of format "module/page"
@@ -185,6 +187,9 @@ export class InputControllerService {
 
     getController(page: string, input_identifier: string): TextInputController {
         if (!this.controllers[page]) {
+            return null;
+        }
+        if (!this.controllers[page][input_identifier]) {
             return null;
         }
         return this.controllers[page][input_identifier];
