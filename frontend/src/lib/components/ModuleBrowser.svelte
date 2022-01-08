@@ -12,7 +12,8 @@
     let selectPage = (e) => {
         const mod = e.detail.module;
         const page = e.detail.page;
-        navigate(`/${mod}/${page}`);
+        // Use encodeURIComponent to escape the page name (e. g. allow  "?", "&", "/", "=" and spaces)
+        navigate(`/${encodeURIComponent(mod)}/${encodeURIComponent(page)}`);
         setTimeout(()=> {
             dispatch("close");
         }, 100);

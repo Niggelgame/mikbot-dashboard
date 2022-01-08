@@ -84,6 +84,10 @@ class TestModule : DashboardExtensionPoint {
             textInput(newTextInputController(goodVar))
             text(goodVar)
         }
+
+        page("yoyoyoyoyoyoyoyoyoyoyoyoyoyo$?xd*#/423") {
+            text("yoyoyoyoyoyoyoyoyoyoyoyoyoyo$?xd*#/423")
+        }
     }
 }
 
