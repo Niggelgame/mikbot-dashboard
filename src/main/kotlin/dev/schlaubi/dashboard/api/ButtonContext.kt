@@ -1,9 +1,14 @@
 package dev.schlaubi.dashboard.api
 
 import ActionContext
+import dev.kord.x.emoji.Emojis.label
 import dev.schlaubi.dashboard.models.pageelements.ButtonInputElementConfig
 import dev.schlaubi.dashboard.models.pageelements.ButtonInputOption
 import dev.schlaubi.dashboard.models.pageelements.ButtonSubmitAction
+
+fun ModuleContext<*>.button(label: String, cb: ButtonContext.() -> Unit) {
+    modules.add(ButtonContext(label).apply(cb))
+}
 
 class ButtonContext(private val label: String) : PageElementModuleContext<ButtonInputElementConfig>() {
     private var action: ActionContext? = null

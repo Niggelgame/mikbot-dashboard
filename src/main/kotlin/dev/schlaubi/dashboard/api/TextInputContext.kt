@@ -25,6 +25,11 @@ enum class TextInputType {
     week
 }
 
+fun ModuleContext<*>.textInput(controllerContext: TextInputControllerContext<*>, cb: (TextInputContext.() -> Unit)? = null) {
+    val textInput = TextInputContext(controllerContext)
+    if(cb != null) textInput.apply(cb)
+    modules.add(textInput)
+}
 
 class TextInputContext(private val controller: TextInputControllerContext<*>) :
     PageElementModuleContext<TextInputElementConfig>() {

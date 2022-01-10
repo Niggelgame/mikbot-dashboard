@@ -53,6 +53,8 @@ data class PageModuleConfig<T>(
 abstract class ModuleContext<T> {
     val variables = mutableListOf<VariableConfig>()
     val routes = mutableListOf<ActionRoute>()
+    // Child Modules
+    val modules = mutableListOf<PageElementModuleContext<*>>()
     abstract fun toConfig(): PageModuleConfig<T>
 
     fun <T : Any> newVariable(value: T): VariableData<T> {
@@ -88,7 +90,6 @@ abstract class ModuleContext<T> {
 }
 
 abstract class PageElementModuleContext<T : PageElementConfig> : ModuleContext<T>()
-
 
 abstract class ValueProvider<T : Any, R> {
     abstract fun getBaseVariable(): VariableData<T>

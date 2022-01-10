@@ -1,14 +1,11 @@
 package dev.schlaubi.dashboard
 
-import dev.schlaubi.dashboard.api.DashboardExtensionPoint
-import dev.schlaubi.dashboard.api.DashboardModuleContext
-import dev.schlaubi.dashboard.api.MinimalLengthTextInputValidator
-import dev.schlaubi.dashboard.api.getProperty
+import dev.schlaubi.dashboard.api.*
 import org.pf4j.Extension
 
 @Extension
 class TestModule : DashboardExtensionPoint {
-    override val moduleName: String = "TestModule"
+    override val moduleName: String = "Dashboard Test Module"
 
     override fun DashboardModuleContext.register() {
 
@@ -83,6 +80,16 @@ class TestModule : DashboardExtensionPoint {
             text("Base Variables")
             textInput(newTextInputController(goodVar))
             text(goodVar)
+
+            column {
+                text("Test")
+                text("Test2")
+                text("Test3")
+                row {
+                    text("Test4")
+                    text("Test5")
+                }
+            }
         }
 
         page("yoyoyoyoyoyoyoyoyoyoyoyoyoyo$?xd*#/423") {
